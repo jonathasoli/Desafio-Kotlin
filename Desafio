@@ -1,0 +1,34 @@
+enum class Nivel { BASICO, INTERMEDIARIO, AVANCADO }
+
+class Aluno(val nome: String)
+
+data class ConteudoEducacional(val nome: String, val duracao: Int = 60)
+
+data class Formacao(
+    val nome: String,
+    val nivel: Nivel,
+    val conteudos: List<ConteudoEducacional>
+) {
+    val alunosMatriculados = mutableListOf<Aluno>()
+
+    fun matricularAluno(aluno: Aluno) {
+        alunosMatriculados.add(aluno)
+        println("Aluno ${aluno.nome} matriculado na formação $nome.")
+    }
+}
+
+fun main() {
+    // Exemplo de utilização
+    val conteudo1 = ConteudoEducacional("Introdução à Linguagem Kotlin", 60)
+    val conteudo2 = ConteudoEducacional("Desenvolvimento Android com Kotlin", 90)
+
+    val formacaoKotlin = Formacao("Formação Kotlin", Nivel.INTERMEDIARIO, listOf(conteudo1, conteudo2))
+
+    val aluno1 = Aluno("João")
+    val aluno2 = Aluno("Maria")
+
+    formacaoKotlin.matricularAluno(aluno1)
+    formacaoKotlin.matricularAluno(aluno2)
+
+    println("Alunos matriculados na formação ${formacaoKotlin.nome}: ${formacaoKotlin.alunosMatriculados.map { it.nome }}")
+}
